@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="trunk_ethercat_impedance_ros2_control" params="slave_config_path reversed_slave_config_path">
+    <ros2_control name="eyou_trunk_impedance_system" type="system">
+      <hardware>
+        <plugin>ethercat_driver/EthercatDriver</plugin>
+        <param name="master_id">0</param>
+        <param name="control_frequency">100</param>
+      </hardware>
+      <xacro:macro name="impedance_joint" params="joint_name ec_position slave_config">
+        <joint name="${joint_name}">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <ec_module name="${joint_name}_drive">
+            <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
+            <param name="alias">0</param>
+            <param name="position">${ec_position}</param>
+            <param name="mode_of_operation">10</param>
+            <param name="slave_config">${slave_config}</param>
+          </ec_module>
+        </joint>
+      </xacro:macro>
+      <xacro:impedance_joint joint_name="trunk_joint1" ec_position="3" slave_config="${slave_config_path}"/>
+      <xacro:impedance_joint joint_name="trunk_joint2" ec_position="2" slave_config="${slave_config_path}"/>
+      <xacro:impedance_joint joint_name="trunk_joint3" ec_position="1" slave_config="${reversed_slave_config_path}"/>
+      <xacro:impedance_joint joint_name="trunk_joint4" ec_position="0" slave_config="${reversed_slave_config_path}"/>
+    </ros2_control>
+  </xacro:macro>
+</robot>

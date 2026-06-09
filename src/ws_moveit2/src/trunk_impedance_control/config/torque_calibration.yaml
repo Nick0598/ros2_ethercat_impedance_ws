@@ -1,0 +1,36 @@
+# Torque/current unit calibration for EYOU CiA402 (0x6071 / 0x6077)
+#
+# Per EYOU manual: 0x6071 and 0x6077 use per thousand of rated current.
+#
+#   raw = (I / I_rated) * 1000
+#
+# ros2_control effort interface uses Nm. With tau = K_t * I:
+#   I = tau / K_t
+#   raw = (tau / (K_t * I_rated)) * 1000
+#
+# PDO factors (ec_pdo_single_interface_channel_manager):
+#   write factor = 1000 / (K_t * I_rated)
+#   read factor  = (K_t * I_rated) / 1000
+#
+# Steps:
+#   1. Read I_rated (A) and K_t (Nm/A) from manual or SDO.
+#   2. Update rated_current_a and torque_constant_nm_per_a below.
+#   3. Run: python3 scripts/update_torque_factors.py \
+#        --rated-current-a <A> --torque-constant-nm-per-a <Nm/A>
+#   4. ros2 launch trunk_impedance_control single_motor_bringup.launch.py use_effort_controller:=true
+#   5. Send small torque steps; compare /joint_states effort to command.
+
+rated_current_a: 5.0
+torque_constant_nm_per_a: 2.0
+
+effort_write_factor: 100.0
+effort_read_factor: 0.01
+
+velocity_factor: 9.904318103600473e-08
+
+open_loop_test_torques_nm:
+  - 0.0
+  - 0.05
+  - 0.1
+  - -0.05
+  - 0.0

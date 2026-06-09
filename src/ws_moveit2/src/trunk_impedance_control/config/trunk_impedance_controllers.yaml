@@ -1,0 +1,35 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    trunk_impedance_controller:
+      type: trunk_impedance_control/JointImpedanceController
+
+joint_state_broadcaster:
+  ros__parameters:
+    interfaces:
+      - position
+      - velocity
+      - effort
+
+trunk_impedance_controller:
+  ros__parameters:
+    joints:
+      - trunk_joint1
+      - trunk_joint2
+      - trunk_joint3
+      - trunk_joint4
+    stiffness: [5.0, 5.0, 5.0, 5.0]
+    damping: [1.0, 1.0, 1.0, 1.0]
+    desired_position: [0.0, 0.0, 0.0, 0.0]
+    desired_velocity: [0.0, 0.0, 0.0, 0.0]
+    feedforward_torque: [0.0, 0.0, 0.0, 0.0]
+    effort_limit: [5.0, 5.0, 5.0, 5.0]
+    use_position_limits: true
+    position_limit_min: [-1.57, -1.57, -1.57, -1.57]
+    position_limit_max: [1.57, 1.57, 1.57, 1.57]
+    estop_topic: /estop
+    gravity_torque_topic: /trunk_robot/gravity_compensation/torque

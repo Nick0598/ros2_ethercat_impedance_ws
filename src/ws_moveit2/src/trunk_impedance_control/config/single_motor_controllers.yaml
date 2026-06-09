@@ -1,0 +1,37 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 500
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    effort_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    joint_impedance_controller:
+      type: trunk_impedance_control/JointImpedanceController
+
+joint_state_broadcaster:
+  ros__parameters:
+    interfaces:
+      - position
+      - velocity
+      - effort
+
+effort_controller:
+  ros__parameters:
+    joints:
+      - motor_joint
+    interface_name: effort
+
+joint_impedance_controller:
+  ros__parameters:
+    joints:
+      - motor_joint
+    stiffness: 0.0
+    damping: 0.5
+    desired_position: 0.0
+    desired_velocity: 0.0
+    feedforward_torque: 0.0
+    effort_limit: 2.0
+    estop_topic: /estop

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<library path="trunk_impedance_control">
+  <class name="trunk_impedance_control/JointImpedanceController"
+         type="trunk_impedance_control::JointImpedanceController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      Joint impedance controller: tau = K*(q_des - q) + D*(qd_des - qd) + tau_ff + tau_gravity
+    </description>
+  </class>
+</library>
