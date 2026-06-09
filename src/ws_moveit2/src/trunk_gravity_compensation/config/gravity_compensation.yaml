@@ -1,0 +1,18 @@
+gravity_compensation_node:
+  ros__parameters:
+    robot_description_package: robot_model
+    urdf_relative_path: urdf/trunk_robot.urdf
+    urdf_path: ""
+    base_link: trunk_base_link
+    tip_link: trunk_link4
+    joint_names:
+      - trunk_joint1
+      - trunk_joint2
+      - trunk_joint3
+      - trunk_joint4
+    gravity_xyz: [0.0, 0.0, -9.81]
+    joint_states_topic: joint_states
+    torque_topic: gravity_compensation/torque
+    publish_rate: 100.0
+    warn_if_torque_exceeds_limit: true
+    torque_limits_nm: [300.0, 300.0, 300.0, 300.0]

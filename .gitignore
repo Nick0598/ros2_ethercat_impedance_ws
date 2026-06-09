@@ -1,0 +1,19 @@
+# ROS 2 workspaces
+build/
+install/
+log/
+.vscode/
+.cursor/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDEs / OS
+.DS_Store
+*.swp
+csv/
+*.csv
+src/eyou_product_interfaces/
+*.zip
+/package-lock.json
